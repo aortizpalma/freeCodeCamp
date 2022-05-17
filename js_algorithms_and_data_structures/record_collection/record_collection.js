@@ -21,7 +21,49 @@ const recordCollection = {
   
 // Only change code below this line
 function updateRecords(recordCollection, id, prop, value) {
+
+    if (prop !== "tracks" && value !== "") {
+        console.log("condition 1 met");
+        recordCollection[id][prop] = value;
+    } else if (prop === "tracks" && !recordCollection[id].hasOwnProperty("tracks")) {
+        recordCollection[id][prop] = [];
+        // console.log(recordCollection[id][prop]);
+        recordCollection[id][prop].push(value);
+        // console.log(recordCollection[id][prop]);
+    } else if (prop === "tracks" && value !== []) {
+        recordCollection[id][prop].push(value);
+    } else if (value === "") {
+        delete recordCollection[id][prop];
+    }
+
+    
+    
+    
+    
+    console.log(recordCollection);
     return recordCollection;
 }
-  
-updateRecords(recordCollection, 5439, 'artist', 'ABBA');
+
+
+// TESTS
+
+// updateRecords(recordCollection, 5439, "artist", "ABBA");
+// artist should be the string ABBA
+
+// updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me");
+// tracks should have the string Take a Chance on Me as the last and only element.
+
+// updateRecords(recordCollection, 2548, "artist", "");
+// artist should not be set
+
+// updateRecords(recordCollection, 1245, "tracks", "Addicted to Love");
+// tracks should have the string Addicted to Love as the last element.
+
+// updateRecords(recordCollection, 2468, "tracks", "Free");
+// tracks should have the string 1999 as the first element.
+
+updateRecords(recordCollection, 2548, "tracks", "");
+// tracks should not be set ****** NOT WORKING YET
+
+// updateRecords(recordCollection, 1245, "albumTitle", "Riptide");
+// albumTitle should be the string Riptide
